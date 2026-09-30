@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tapish | Temperature Converter and Live Weather</title>
+  <meta name="description" content="Convert Celsius, Fahrenheit and Kelvin, and check live weather for any city.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <span class="blob blob-a"></span>
+    <span class="blob blob-b"></span>
+    <span class="blob blob-c"></span>
+    <span class="grain"></span>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="#top" aria-label="Tapish home">
+        <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14.5V5a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="17.5" r="2.2" fill="#ff6a3d"/></svg>
+        <span>Tapish</span>
+      </a>
+      <nav aria-label="Main"><a href="#convert">Convert</a><a href="#live">Live weather</a></nav>
+    </div>
+  </header>
+
+  <div class="ruler" aria-hidden="true"><div class="ruler-marker"><span id="ruler-label">20 °C</span></div></div>
+
+  <main id="top">
+    <section class="hero wrap">
+      <h1>Tapish</h1>
+      <p class="hero-sub">Convert any temperature, then see how it feels outside right now.</p>
+      <p class="hero-note">Tapish means warmth in Urdu. The page changes colour with the temperature you convert or look up.</p>
+    </section>
+
+    <div class="wrap layout">
+      <section class="card" id="convert" aria-labelledby="convert-title">
+        <h2 id="convert-title">Convert</h2>
+        <form id="converter-form" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="temp-input">Temperature</label>
+              <input type="text" id="temp-input" inputmode="decimal" autocomplete="off" placeholder="e.g. 36.6" aria-describedby="error-msg">
+            </div>
+            <div class="field">
+              <label for="unit-select">From unit</label>
+              <select id="unit-select">
+                <option value="C">Celsius (°C)</option>
+                <option value="F">Fahrenheit (°F)</option>
+                <option value="K">Kelvin (K)</option>
+              </select>
+            </div>
+          </div>
+          <p id="error-msg" class="error" role="alert" hidden></p>
+          <button type="submit" class="btn primary block">Convert</button>
+        </form>
+        <div class="results" aria-live="polite">
+          <p id="empty-state" class="empty">Your conversion will appear here.</p>
+          <ul id="result-list" class="result-list" hidden>
+            <li data-unit="C"><span class="unit-name">Celsius</span><span class="value" id="out-C"></span></li>
+            <li data-unit="F"><span class="unit-name">Fahrenheit</span><span class="value" id="out-F"></span></li>
+            <li data-unit="K"><span class="unit-name">Kelvin</span><span class="value" id="out-K"></span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card" id="live" aria-labelledby="live-title">
+        <h2 id="live-title">Live weather</h2>
+        <form id="city-form" class="city-form">
+          <label class="sr-only" for="city-input">City</label>
+          <input type="text" id="city-input" placeholder="Search a city, e.g. Karachi" autocomplete="off">
+          <button type="submit" class="btn primary">Search</button>
+          <button type="button" id="geo-btn" class="btn ghost">My location</button>
+        </form>
+        <p id="weather-status" class="status" role="status">Loading live weather...</p>
+
+        <div id="weather-body" hidden>
+          <div class="now">
+            <div>
+              <p class="place" id="place-name"></p>
+              <p class="muted" id="local-time"></p>
+              <p class="temp-big" id="temp-big"></p>
+              <p class="desc" id="weather-desc"></p>
+            </div>
+            <div class="unit-toggle" role="group" aria-label="Temperature unit">
+              <button type="button" data-unit="C" aria-pressed="true">°C</button>
+              <button type="button" data-unit="F" aria-pressed="false">°F</button>
+              <button type="button" data-unit="K" aria-pressed="false">K</button>
+            </div>
+          </div>
+          <ul class="stats">
+            <li><span class="muted">Feels like</span><strong id="stat-feels"></strong></li>
+            <li><span class="muted">Humidity</span><strong id="stat-humidity"></strong></li>
+            <li><span class="muted">Wind</span><strong id="stat-wind"></strong></li>
+          </ul>
+          <button type="button" id="use-live" class="btn ghost">Convert this temperature</button>
+          <h3>Next 24 hours</h3>
+          <div class="chart-wrap" id="hourly-chart"></div>
+          <h3>Next 7 days</h3>
+          <div class="chart-wrap" id="daily-chart"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <div>
+        <p class="foot-brand">Tapish</p>
+        <p class="foot-text">A small temperature converter with live weather, built with HTML, CSS and vanilla JavaScript.</p>
+      </div>
+      <p class="foot-text">Weather data from <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>.<br>&copy; <span id="year"></span> Tapish</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
