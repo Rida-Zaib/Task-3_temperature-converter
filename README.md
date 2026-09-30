@@ -1,42 +1,42 @@
 # Tapish — Temperature Converter + Live Weather
 
-Ek static website hai (HTML, CSS, vanilla JavaScript). Koi build step, koi
-npm install, kuch nahi chahiye. Sirf 3 files hain:
+This is a static website (HTML, CSS, vanilla JavaScript). No build step, no
+`npm install`, nothing extra needed. Just 3 files:
 
 ```
-index.html   → page ka structure
-style.css    → design aur animated background
+index.html   → page structure
+style.css    → design and animated background
 script.js    → converter logic + live weather (Open-Meteo API)
 ```
 
-Live weather ke liye koi API key nahi chahiye, Open-Meteo bilkul free hai.
+No API key is needed for live weather — Open-Meteo is completely free.
 
 ---
 
-## 1. Apne computer pe run karna
+## 1. Running it on your computer
 
-`index.html` ko seedha double-click karke bhi khol sakti ho, lekin **"My
-location"** button aur weather fetch kabhi kabhi `file://` se khulne par
-browser block kar deta hai. Isliye best tareeqa ek chhota local server
-chalana hai:
+You can open `index.html` directly by double-clicking it, but the **"My
+location"** button and the weather fetch are sometimes blocked by the
+browser when opened via `file://`. So the best approach is to run a small
+local server:
 
-**Option A — bina kuch install kiye (agar Node.js laga hua hai):**
+**Option A — no install needed (if Node.js is installed):**
 ```bash
 cd tapish
 npx serve
 ```
-Terminal mein jo link aaye (usually `http://localhost:3000`), wo browser mein kholo.
+Open the link the terminal prints (usually `http://localhost:3000`) in your browser.
 
-**Option B — VS Code mein:**
-1. VS Code mein `tapish` folder kholo.
-2. Extensions mein "Live Server" install karo (agar nahi hai).
-3. `index.html` pe right-click karo → **Open with Live Server**.
+**Option B — in VS Code:**
+1. Open the `tapish` folder in VS Code.
+2. Install the "Live Server" extension (if you don't have it).
+3. Right-click `index.html` → **Open with Live Server**.
 
-Dono tareeqon mein "My location" aur weather fetch bilkul sahi chalenge.
+With either option, "My location" and the weather fetch will both work correctly.
 
 ---
 
-## 2. GitHub pe push karna
+## 2. Pushing to GitHub
 
 ```bash
 cd tapish
@@ -47,36 +47,35 @@ git branch -M main
 git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
 git push -u origin main
 ```
-(Pehle github.com pe ek naya empty repo bana lena, README/gitignore add kiye bagair.)
+(First create a new empty repo on github.com, without adding a README or .gitignore.)
 
 ---
 
-## 3. Vercel pe deploy karna
+## 3. Deploying on Vercel
 
-1. vercel.com pe GitHub se login karo.
-2. **Add New → Project** dabao aur apna repo import karo.
-3. Yeh plain static site hai, koi Build Command ya Output directory set karne
-   ki zarurat nahi — sab kuch default chhod do.
-4. **Deploy** dabao. Ek minute mein live link mil jayega
-   (jaise `tapish.vercel.app`).
-5. Aage jab bhi `git push` karogi, Vercel khud dobara deploy kar dega.
+1. Log in to vercel.com with GitHub.
+2. Click **Add New → Project** and import your repo.
+3. This is a plain static site, so there's no Build Command or Output
+   directory to set — leave everything as default.
+4. Click **Deploy**. You'll get a live link in about a minute
+   (something like `tapish.vercel.app`).
+5. From then on, every `git push` will trigger an automatic redeploy on Vercel.
 
-Is site mein koi environment variable / secret key nahi lagti, isliye
-Vercel Environment Variables section mein kuch bhi daalne ki zarurat nahi.
+This site has no environment variables or secret keys, so there's nothing
+to add in Vercel's Environment Variables section.
 
 ---
 
-## Kya kya hai
+## What's included
 
-- **Convert card:** Celsius, Fahrenheit, Kelvin ke beech convert karti hai.
-  Ghalat input aur absolute zero se neeche wali values pe friendly error
-  aata hai.
-- **Live weather card:** shehar search karo ya "My location" dabao — current
-  temperature, feels-like, humidity, wind, agle 24 ghante ka line chart, aur
-  agle 7 din ka high/low chart dikhata hai. Data [Open-Meteo](https://open-meteo.com/) se aata hai.
-- **Animated background:** page ka rang current temperature ke hisab se
-  badalta hai (thanda = neela, garam = laal), aur peeche halke se glowing
-  blobs dheeme dheeme move karte hain.
+- **Convert card:** converts between Celsius, Fahrenheit, and Kelvin.
+  Invalid input and values below absolute zero show a friendly error message.
+- **Live weather card:** search a city or press "My location" — shows current
+  temperature, feels-like, humidity, wind, a line chart for the next 24 hours,
+  and a high/low chart for the next 7 days. Data comes from [Open-Meteo](https://open-meteo.com/).
+- **Animated background:** the page's colour shifts with the current
+  temperature (cold = blue, warm = red), with soft glowing blobs drifting
+  slowly in the background.
 
-Default city `script.js` ke `DEFAULT_PLACE` variable mein set hai (abhi
-Lahore hai) — chahe to koi aur shehar daal do.
+The default city is set in the `DEFAULT_PLACE` variable in `script.js`
+(currently Lahore) — change it to any other city if you like.
